@@ -50,18 +50,6 @@ var authServiceAPI = function($injectHttp, $q, $base64, $cookieStore, $rootScope
 
         /* Dummy authentication for testing, uses $timeout to simulate api call
          ----------------------------------------------*/
-        // $timeout(function () {
-        //     var response = { 
-        //         success: username === 'test' && password === 'test',
-        //         assetId: ['10000001']
-        //     };
-
-        //     if (!response.success) {
-        //         response.message = 'Username or password is incorrect';
-        //     }
-        //     callback(response);
-        // }, 500);
-
         var response = {
             success: false
         };

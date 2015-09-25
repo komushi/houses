@@ -19,42 +19,6 @@ var menuServiceAPI = function($rootScope, $state, $q, $ocLazyLoad, $cookieStore,
   }];
 
 
-  var retrieveMainMenu = function(assetId) {
-    var deferred = $q.defer();
-
-    dataService.getMenuData(assetId, 'main').then(function(data) {
-
-      deferred.resolve(data);
-    });
-
-    return deferred.promise;
-
-  };
-
-  var retrieveDirectionsSubMenu = function(assetId) {
-    var deferred = $q.defer();
-
-    dataService.getMenuData(assetId, 'directions').then(function(data) {
-
-      deferred.resolve(data);
-    });
-
-    return deferred.promise;
-
-  };
-
-  var retrieveInteriorSubMenu = function(assetId) {
-    var deferred = $q.defer();
-
-    dataService.getMenuData(assetId, 'interior').then(function(data) {
-
-      deferred.resolve(data);
-    });
-
-    return deferred.promise;
-
-  };
-
   var adjustViewData = function(viewName, viewData) {
     if (!viewData) {
       return {};
@@ -159,13 +123,13 @@ var menuServiceAPI = function($rootScope, $state, $q, $ocLazyLoad, $cookieStore,
         };
 
         var headerInfo = {
-          "assetId": "10000001",
+          "assetId": stateDetails.assetId,
           "viewType": "blocks",
           "viewName": "header"
         };
 
         var sidebarInfo = {
-          "assetId": "10000001",
+          "assetId": stateDetails.assetId,
           "viewType": "blocks",
           "viewName": "sidebar"
         };
