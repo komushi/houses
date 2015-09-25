@@ -1,0 +1,15 @@
+{
+  "name": "rental_house",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Prensentation Layer by AngularJS of rental_house",
+  "repository": "https://bitbucket.org/komushi/rental_house",
+  "license": "MIT",
+  "dependencies": {
+    "express": "~4.0.0",
+    "body-parser":"1.10.x"
+  },
+  "scripts": {
+    "start": "node ./server/nodeapp.js"
+  }
+}

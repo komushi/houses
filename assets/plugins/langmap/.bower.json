@@ -1,0 +1,28 @@
+{
+  "name": "langmap",
+  "main": "language-mapping-list.js",
+  "version": "0.0.9",
+  "homepage": "https://github.com/alicoding/language-mapping-list",
+  "authors": [
+    "Ali Al Dallal <ali@alicoding.com>"
+  ],
+  "description": "List of all the known languages in their English and Native name with locales.",
+  "keywords": [
+    "Langmap",
+    "list",
+    "of",
+    "languages",
+    "i18n",
+    "l10n"
+  ],
+  "license": "MIT",
+  "_release": "0.0.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.9",
+    "commit": "50cec15aa0fb4e3b659a1e6a4a6b397cc0fea738"
+  },
+  "_source": "git://github.com/alicoding/language-mapping-list.git",
+  "_target": "~0.0.8",
+  "_originalSource": "langmap"
+}

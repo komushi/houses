@@ -1,0 +1,83 @@
+<!-- START PAGE-CONTAINER -->
+<div class="login-wrapper ">
+    <!-- START Login Background Pic Wrapper-->
+    <div class="bg-pic">
+        <!-- START Background Pic-->
+        <img src="assets/img/demo/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg" data-src="assets/img/demo/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg" ui-jq="unveil" data-src-retina="assets/img/demo/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg" alt="" class="lazy">
+        <!-- END Background Pic-->
+        <!-- START Background Caption-->
+        <div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-20 m-b-20">
+            <h2 class="semi-bold text-white">
+          Pages make it easy to enjoy what matters the most in the life</h2>
+            <p class="small">
+                images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2013-2014 REVOX.
+            </p>
+        </div>
+        <!-- END Background Caption-->
+    </div>
+    <!-- END Login Background Pic Wrapper-->
+    <!-- START Login Right Container-->
+    <div class="login-container bg-white">
+        <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
+            <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" ui-jq="unveil" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+            <p class="p-t-35">Sign into your houses account</p>
+            
+            <div ng-show="error" class="alert alert-danger">{{error}}</div>
+            <form id="form-login" name="form" class="p-t-15" role="form" ng-submit="login()">
+                <!-- START Form Control-->
+                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : form.username.$dirty && form.username.$error.required }">
+                    <span class="title" for="username">Login</span>
+                    <span><i class="fa fa-key"></i></span>
+                    <div class="controls">
+                        <input type="text" name="username" placeholder="User Name" class="form-control" ng-model="username" required>
+                    </div>
+                    <label class="error" for="username" ng-show="form.username.$dirty && form.username.$error.required">This field is required.</label>
+                </div>
+                <!-- END Form Control-->
+                <!-- START Form Control-->
+                <div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : form.password.$dirty && form.password.$error.required }">
+                    <span class="title" for="password">Password</span>
+                    <span><i class="fa fa-lock"></i></span>
+                    <div class="controls">
+                        <input type="password" class="form-control" name="password" placeholder="Credentials" ng-model="password" required>
+                    </div>
+                    <label class="error" for="password" ng-show="form.password.$dirty && form.password.$error.required">This field is required.</label>
+                </div>
+
+                <!-- START Form Control-->
+                <div class="row">
+                    <div class="col-md-6 no-padding">
+                        <div class="checkbox ">
+                            <input type="checkbox" value="1" id="checkbox1">
+                            <label for="checkbox1">Keep Me Signed in</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="" class="text-info small">Help? Contact Support</a>
+                    </div>
+                </div>
+                <!-- END Form Control-->
+                <div class="form-actions">
+                    <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary btn-cons m-t-10">Login</button>
+                    <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                </div>
+            </form>
+            
+            <!--END Login Form-->
+            <div class="pull-bottom sm-pull-bottom">
+                <div class="m-b-30 p-r-80 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix">
+                    <div class="col-sm-3 col-md-2 no-padding">
+                        <img alt="" class="m-t-5" data-src="assets/img/demo/pages_icon.png" ui-jq="unveil" data-src-retina="assets/img/demo/pages_icon_2x.png" height="60" src="assets/img/demo/pages_icon.png" width="60">
+                    </div>
+                    <div class="col-sm-9 no-padding m-t-10">
+                        <p><small>
+                Create a pages account. If you have a facebook account, log into it for this process. Sign in with <a href="" class="text-info">Facebook</a> or <a href="" class="text-info">Google</a></small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Login Right Container-->
+</div>
+<!-- END PAGE CONTAINER -->

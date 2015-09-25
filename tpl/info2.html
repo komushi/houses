@@ -1,0 +1,66 @@
+<!-- START PAGE COVER -->
+<div class="container-fluid container-fixed-lg ">
+    <ul class="breadcrumb">
+        <li>
+            <a href="#" translate="{{MENU}}"></a>
+        </li>
+        <li><a class="active" href="#" translate="{{PAGETITLE}}"></a>
+        </li>
+    </ul>
+    <!-- END BREADCRUMB -->
+    <h3 ng-show="false" class="page-title" translate="{{PAGETITLE}}"></h3>
+</div>
+
+<div class="container-fluid container-fixed-lg">
+    <!-- YOU CAN REMOVE .container-fixed-lg TO DISABLE THE FEATURE WHERE THE CONTENT
+                 ALIGNS TO THE CENTER WITHOUT STRECTHING UNGLY ON 1800PX(1080P & 4/5K MONITORS) UP WORDS SCREEN
+                  -->
+    <!-- CONTENT GOES HERE-->
+    <h4 ng-show="false" translate="{{PAGETITLE}}"></h4>
+    <h5 ng-show="false" translate="{{MESSAGE}}"></h5>
+
+    <div class="panel panel-default" pg-portlet on-maximize="maximizeMessage()" on-restore="restoreMessage()">
+        <div class="panel-heading">
+            <div class="panel-title" translate="{{PAGETITLE}}">
+            </div>
+            <div class="panel-controls">
+                <ul>
+                    <li><a href="" data-toggle="maximize" class="portlet-maximize"><i class="portlet-icon portlet-icon-maximize"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="scrollable" ui-jq="scrollbar" ui-options="{ignoreOverlay: false}">
+                <div style="max-height:500px">
+                    <span>{{MESSAGE | translate | characters:number}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-transparent">
+        <div class="panel-body no-padding">
+            <div class="col-lg-1 col-md-1 no-padding">
+                <ul class="nav nav-tabs nav-tabs-simple nav-tabs-left bg-white">
+                    <li ng-repeat="slide in slides" ng-class="{active: snapIndex == $index}">
+                        <a ng-click="$parent.snapIndex=$index" pg-tab href="#">{{slide.translationId | translate }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-11 col-md-11 no-padding" ng-init="snapIndex=0">
+                <div class="panel panel-default no-padding" >
+                    <div class="panel-body no-padding">
+                        <div class="tab-content bg-transparent no-padding" snapscroll after-snap="setMessage(snapIndex)" fit-window-height="90%" snap-index="snapIndex" snap-duration="1200">
+                            <image-container ng-repeat="slide in slides">
+                                <img src="{{slide.imageUrl}}"></img>    
+                            </image-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

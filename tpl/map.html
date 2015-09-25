@@ -1,0 +1,53 @@
+<!-- START PAGE COVER -->
+<div class="container-fluid container-fixed-lg ">
+  <ul class="breadcrumb">
+    <li>
+      <a href="#" translate="{{MENU}}"></a>
+    </li>
+    <li>
+      <a href="#" translate="{{DIRECTIONS}}"></a>
+    </li>
+    <li><a class="active" href="#" translate="{{PAGETITLE}}"></a>
+  </li>
+</ul>
+<!-- END BREADCRUMB -->
+</div>
+<!--
+<div class="container-fluid container-fixed-lg" map-lazy-load="https://maps.google.com/maps/api/js?v=3&sensor=false&language=en">
+-->
+<div class="container-fluid container-fixed-lg" map-lazy-load="http://ditu.google.cn/maps/api/js?v=3&language=zh-CN&sensor=false">
+
+  <!-- CONTENT GOES HERE-->
+  <h4 ng-show="true" translate="{{PAGETITLE}}"></h4>
+  <h5 ng-show="true" translate="{{MESSAGE}}"></h5>
+
+
+  <!-- START PANEL -->
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div snapscroll fit-window-height="90%">
+        <map styles="{{styles}}" style="height:100%" zoom="{{zoom}}" center="{{center}}">
+          <marker ng-repeat="(id, marker) in markers" id="{{id}}" position="{{marker.coordinates}}" on-click="showMarkerInfo(event, id);">
+          </marker>
+
+          <info-window id="markerInfo">
+            <div class="panel panel-transparent" overlay-opacity="0.6">
+                <div class="panel-heading">
+                    <div class="panel-title">{{MARKER}}
+                    </div>
+                </div>
+                <div class="panel-body">
+                  <h5>
+                  <span class="semi-bold">{{crtMarker.translationId | translate}}</span></h5>
+                  <p>{{crtMarker.desc.translationId | translate}}
+                  </p>
+                </div>
+            </div>
+          </info-window>
+        </map>
+
+      </div>
+    </div>
+  </div>
+  <!-- END PANEL -->
+</div>

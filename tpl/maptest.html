@@ -1,0 +1,43 @@
+<!-- START PAGE COVER -->
+<div class="container-fluid container-fixed-lg ">
+  <ul class="breadcrumb">
+    <li>
+      <a href="#" translate="{{MENU}}"></a>
+    </li>
+    <li>
+      <a href="#" translate="{{DIRECTIONS}}"></a>
+    </li>
+    <li><a class="active" href="#" translate="{{PAGETITLE}}"></a>
+  </li>
+</ul>
+<!-- END BREADCRUMB -->
+</div>
+
+<div class="container-fluid container-fixed-lg" map-lazy-load="https://maps.google.com/maps/api/js?v=3&sensor=false&language=en">
+
+  <!-- START PANEL -->
+  <div class="panel panel-default">
+    <div class="panel-body">
+<div snapscroll fit-window-height="90%">
+      <map styles="{{styles}}" style="height:100%" zoom="{{zoom}}" center="{{center}}">
+      
+        <info-window id="foo">
+          <div ng-non-bindable="">
+            Lat/Lng: {{this.getPosition()}}<br/>
+            <ul>
+              <li ng-repeat='item in store.items'>{{item}}</li>
+            </ul>
+          </div>
+        </info-window>
+
+<marker ng-repeat="(id, marker) in markers" position="{{marker.coordinates}}" on-click="showStore(event, id);" id="{{id}}">
+</marker>
+
+
+        
+      </map>
+</div>
+                </div>
+            </div>
+
+</div>

@@ -1,0 +1,23 @@
+/*
+
+* Override Pages default styles or create your own styles here
+
+*/
+
+image-container {
+
+}
+
+image-container > img {
+    display: block;
+    margin: auto;
+    height: 100%;
+    image-orientation: from-image;
+}
+
+.portrait img {
+    width: 100%;
+}
+.landscape img {
+    height: 100%;
+}

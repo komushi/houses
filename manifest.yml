@@ -1,0 +1,8 @@
+---
+applications:
+- name: houses
+  memory: 64M
+  instances: 1
+  host: houses
+  buildpack: staticfile_buildpack
+    

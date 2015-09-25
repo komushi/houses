@@ -1,0 +1,48 @@
+<!-- START PAGE COVER -->
+<div class="container-fluid container-fixed-lg ">
+    <ul class="breadcrumb">
+        <li>
+            <a href="#" translate="{{MENU}}"></a>
+        </li>
+        <li>
+            <a href="#" translate="{{DIRECTIONS}}"></a>
+        </li>
+        <li><a class="active" href="#" translate="{{PAGETITLE}}"></a>
+        </li>
+    </ul>
+    <!-- END BREADCRUMB -->
+</div>
+<!--    
+<div class="container-fluid container-fixed-lg" map-lazy-load="https://maps.google.com/maps/api/js?v=3&sensor=false&language=en">
+--> 
+
+<div class="container-fluid container-fixed-lg" map-lazy-load="http://ditu.google.cn/maps/api/js?v=3&language=zh-CN&sensor=false">
+
+  <h4 ng-show="true" translate="{{PAGETITLE}}"></h4>
+  <h5 ng-show="true" translate="{{GUIDE}}"></h5>
+
+  <!-- START PANEL -->
+  <div class="panel panel-default">
+      <div class="panel-body">
+
+        <div snapscroll fit-window-height="90%">
+          <div class="col-lg-8 col-md-9" style="height: 500px">
+            <map styles="{{styles}}" style="height:100%">
+              <marker position="{{directions.homeMarker}}" icon="//developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"></marker>
+              <directions 
+                draggable="false"
+                panel="directions-panel"
+                travel-mode="{{directions.travelMode}}"
+                origin="{{directions.origin}}"
+                destination="{{directions.destination}}">
+              </directions>
+            </map>
+          </div>
+          <div class="col-lg-4 col-md-3" id="directions-panel"></div>
+
+        </div>    
+
+      </div>
+  </div>
+  <!-- END PANEL -->
+</div>
