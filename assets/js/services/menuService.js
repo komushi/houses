@@ -62,6 +62,135 @@ var menuServiceAPI = function($rootScope, $state, $q, $ocLazyLoad, $cookieStore,
 
   };
 
+  var createServicesState = function(stateDetails) {
+
+    stateDetails.parentState = "app_services";
+
+    if ($state.get(stateDetails.parentState + "." + stateDetails.viewName)) {
+      return;
+    }
+
+    stateDetails.controllerUrl = "assets/js/controllers/" + stateDetails.viewType + "Controller.js";
+
+    switch (stateDetails.viewType) {
+
+      case "info":
+        stateDetails.plugin = ["snapscroll"];
+        break;
+
+      case "info2":
+        stateDetails.plugin = ["snapscroll", "truncate"];
+        break;
+
+      case "directions":
+        stateDetails.plugin = ["ng-map"];
+        break;
+
+      case "map":
+        stateDetails.plugin = ["ng-map"];
+        break;
+
+    }
+
+    var stateConfig = {};
+    stateConfig.url = "/" + stateDetails.viewName;
+    stateConfig.templateUrl = "tpl/" + stateDetails.viewType + ".html";
+    stateConfig.controller = stateDetails.viewType + "Ctrl";
+
+    var resolve = {
+      deps: ['$ocLazyLoad', function($ocLazyLoad) {
+        return $ocLazyLoad.load(stateDetails.plugin, {
+            insertBefore: '#lazyload_placeholder'
+          })
+          .then(function() {
+            return $ocLazyLoad.load(stateDetails.controllerUrl);
+          });
+      }],
+      viewSummary: ['$q', function($q) {
+        var deferred = $q.defer();
+
+        var viewInfo = {
+          userId: stateDetails.userId,
+          viewName: stateDetails.viewName,
+          viewType: stateDetails.viewType
+        };
+
+        var headerInfo = {
+          "userId": stateDetails.userId,
+          "viewType": "blocks",
+          "viewName": "header"
+        };
+
+        // var sidebarInfo = {
+        //   "userId": stateDetails.userId,
+        //   "viewType": "blocks",
+        //   "viewName": "sidebar"
+        // };
+
+        var viewInfos = [];
+        viewInfos.push(viewInfo);
+        viewInfos.push(headerInfo);
+        // viewInfos.push(sidebarInfo);
+
+        var viewSummary = {
+          viewInfos: viewInfos
+        };
+
+        dataService.getViewData(viewInfo)
+          .then(function(data) {
+
+            viewSummary.viewData = adjustViewData(viewInfo.viewName, data);
+
+            deferred.resolve(viewSummary);
+          }, function() {
+            deferred.resolve(viewSummary);
+          });
+
+
+
+        return deferred.promise;
+      }],
+      authenticated: authenticated
+    };
+
+    // get settings
+    switch (stateDetails.viewType) {
+      case 'directions':
+        var stylesJson = ['jsonService', function(jsonService) {
+          return jsonService.getJson(stateDetails.styles);
+        }];
+
+        resolve.stylesJson = stylesJson;
+        break;
+
+      case 'map':
+        var stylesJson = ['jsonService', function(jsonService) {
+          return jsonService.getJson(stateDetails.styles);
+        }];
+
+        resolve.stylesJson = stylesJson;
+        break;
+
+      case 'maptest':
+        var stylesJson = ['jsonService', function(jsonService) {
+          return jsonService.getJson(stateDetails.styles);
+        }];
+
+        resolve.stylesJson = stylesJson;
+        break;
+    }
+
+    stateConfig.resolve = resolve;
+
+    app.stateProvider.state(stateDetails.parentState + "." + stateDetails.viewName, stateConfig);
+
+    $rootScope.$broadcast("stateCreated", {
+      "state": stateDetails.viewName,
+      "parentState": stateDetails.parentState
+    });
+
+  };
+
   var createState = function(stateDetails) {
 
     stateDetails.parentState = "app";
@@ -229,13 +358,13 @@ var menuServiceAPI = function($rootScope, $state, $q, $ocLazyLoad, $cookieStore,
   }
 
 
-  API.retreiveMenus = function(assetId) {
+  API.retreiveMenus = function() {
 
     var deferred = $q.defer();
 
     $rootScope.menus = [];
 
-    dataService.getMenuData(assetId)
+    dataService.getMenuData($rootScope.globals.currentUser.assetId)
       .then(saveMenus)
       .then(function (){
         API.fillDynamicStates();
@@ -246,6 +375,37 @@ var menuServiceAPI = function($rootScope, $state, $q, $ocLazyLoad, $cookieStore,
 
     return deferred.promise;
   };
+
+  // API.retreiveMenus = function() {
+
+  //   var deferred = $q.defer();
+
+  //   $rootScope.menus = [];
+
+  //   if ($rootScope.currentUser.role == "guest") {
+  //     dataService.getMenuData($rootScope.currentUser.assetId)
+  //       .then(saveMenus)
+  //       .then(function (){
+  //         API.fillDynamicStates();
+
+  //         deferred.resolve();
+  //       });
+  //   }
+  //   else if ($rootScope.currentUser.role == "cleaning") {
+  //     dataService.getServicesMenuData($rootScope.currentUser.role, $rootScope.currentUser.userId)
+  //       .then(saveMenus)
+  //       .then(function (){
+  //         API.fillDynamicStates();
+
+  //         deferred.resolve();
+  //       });
+  //   }
+  //   else {
+  //     deferred.resolve();
+  //   }
+
+  //   return deferred.promise;
+  // };
 
   API.fillDynamicStates = function() {
 
@@ -283,18 +443,6 @@ var menuServiceAPI = function($rootScope, $state, $q, $ocLazyLoad, $cookieStore,
 
   };
 
-  // var generateMenuList = function () {
-
-  //   var menuList = {};
-  //   angular.forEach($rootScope.menus, function(menuKey) {
-
-  //     menuList[menuKey] = generateMenu(menuKey);
-
-  //   });
-
-  //   return menuList;
-
-  // };
 
   API.getMenu = function() {
 
@@ -302,115 +450,6 @@ var menuServiceAPI = function($rootScope, $state, $q, $ocLazyLoad, $cookieStore,
 
   };
 
-
-
-  // API.keepMenus = function() {
-
-  //   $rootScope.interiorMenu = $cookieStore.get('interiorMenu') || {};
-  //   $rootScope.directionsMenu = $cookieStore.get('directionsMenu') || {};
-  //   $rootScope.mainMenu = $cookieStore.get('mainMenu') || {};
-
-  // };
-
-  // API.clearMenus = function() {
-  //   $rootScope.interiorMenu = {};
-  //   $rootScope.directionsMenu = {};
-  //   $rootScope.mainMenu = {};
-
-  //   $cookieStore.remove('interiorMenu');
-  //   $cookieStore.remove('directionsMenu');
-  //   $cookieStore.remove('mainMenu');
-  // };
-
-  // API.retreiveMenus = function(assetId) {
-
-  //   var deferred = $q.defer();
-  //   var promises = [];
-
-  //   promises.push(retrieveMainMenu(assetId));
-  //   promises.push(retrieveDirectionsSubMenu(assetId));
-  //   promises.push(retrieveInteriorSubMenu(assetId));
-
-  //   $rootScope.mainMenu = {};
-  //   $rootScope.directionsMenu = {};
-  //   $rootScope.interiorMenu = {};
-
-  //   $q.all(promises).then(function(values) {
-  //     $rootScope.mainMenu = values[0];
-  //     $rootScope.directionsMenu = values[1];
-  //     $rootScope.interiorMenu = values[2];
-
-  //     $cookieStore.put('mainMenu', $rootScope.mainMenu);
-  //     $cookieStore.put('directionsMenu', $rootScope.directionsMenu);
-  //     $cookieStore.put('interiorMenu', $rootScope.interiorMenu);
-
-  //     API.fillDynamicStates();
-
-  //     deferred.resolve();
-
-  //   });
-
-  //   return deferred.promise;
-  // };
-
-  // API.fillDynamicStates = function() {
-  //   angular.forEach($rootScope.mainMenu, function(item) {
-  //     createState(item);
-  //   });
-
-  //   angular.forEach($rootScope.directionsMenu, function(item) {
-  //     createState(item);
-  //   });
-
-  //   angular.forEach($rootScope.interiorMenu, function(item) {
-  //     createState(item);
-  //   });
-  // };
-
-  // API.getMenu = function() {
-
-  //   var interiorMenu = [];
-  //   angular.forEach($rootScope.interiorMenu, function(item) {
-
-  //     interiorMenu.push({
-  //       "translationId": item.translationId,
-  //       "icon": item.icon,
-  //       "sref": (item.parentState + "." + item.viewName)
-  //     });
-  //   });
-
-  //   var directionsMenu = [];
-  //   angular.forEach($rootScope.directionsMenu, function(item) {
-
-  //     directionsMenu.push({
-  //       "translationId": item.translationId,
-  //       "icon": item.icon,
-  //       "sref": (item.parentState + "." + item.viewName)
-  //     });
-  //   });
-
-  //   var menu = [];
-  //   angular.forEach($rootScope.mainMenu, function(item) {
-  //     if (item.hasSub) {
-  //       menu.push({
-  //         "translationId": item.translationId,
-  //         "icon": item.icon,
-  //         "hasSub": item.hasSub,
-  //         "submenu": ((item.submenu === "directions") ? directionsMenu : interiorMenu)
-  //       });
-  //     } else {
-  //       menu.push({
-  //         "translationId": item.translationId,
-  //         "icon": item.icon,
-  //         "sref": (item.parentState + "." + item.viewName)
-  //       });
-  //     }
-
-  //   });
-
-  //   return menu;
-
-  // };
 
   return API;
 };

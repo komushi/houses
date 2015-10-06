@@ -28,73 +28,12 @@ app.config(['$stateProvider', '$urlRouterProvider',
                     abstract: true,
                     url: "/app",
                     templateUrl: "tpl/app.html"
+                })
+                .state('app_services', {
+                    abstract: true,
+                    url: "/app_services",
+                    templateUrl: "tpl/app_services.html"
                 });
-                // .state('app.home', {
-                //     url: "/home",
-                //     templateUrl: "tpl/home.html",
-                //     controller: "HomeCtrl",
-                //     resolve: {
-                //         deps: ["$ocLazyLoad", function($ocLazyLoad) {
-                //             return $ocLazyLoad.load([
-                //                 ], {
-                //                     insertBefore: "#lazyload_placeholder"
-                //                 })
-                //                 .then(function() {
-                //                     return $ocLazyLoad.load([
-                //                         "assets/js/controllers/homeController.js"
-                //                     ]);
-                //                 });
-                //         }],
-                //         authenticated: authenticated,
-                //         viewName: 
-                //                     ['$q', function ($q) {
-                //                         var deferred = $q.defer();
-                                        
-                //                         deferred.resolve("home");
-
-                //                         return deferred.promise;
-                //                     }]
-                //     }
-                // })
-                // .state('app.static_map', {
-                //     url: '/static_map',
-                //     templateUrl: 'tpl/static_map.html',
-                //     controller: 'StaticMapCtrl',
-                //     resolve: {
-                //         deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                //             return $ocLazyLoad.load([
-                //                     'staticMaps'
-                //                 ], {
-                //                     insertBefore: '#lazyload_placeholder'
-                //                 })
-                //                 .then(function() {
-                //                     return $ocLazyLoad.load([
-                //                         'assets/js/controllers/static_map.js'
-                //                     ]);
-                //                 });
-                //         }],
-                //         authenticated: authenticated
-                //     }
-                // })
-                // .state('app.ng_map_static', {
-                //     url: '/ng_map_static',
-                //     templateUrl: 'tpl/ng_map_static.html',
-                //     controller: 'NgMapCtrl',
-                //     resolve: {
-                //         deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                //             return $ocLazyLoad.load([
-                //                     'ng-map'
-                //                 ], {
-                //                     insertBefore: '#lazyload_placeholder'
-                //                 })
-                //                 .then(function() {
-                //                     return $ocLazyLoad.load('assets/js/controllers/ng_map_static.js');
-                //                 });
-                //         }],
-                //         authenticated: authenticated
-                //     }
-                // });
-
         }
     ]);
 

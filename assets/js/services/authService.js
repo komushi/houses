@@ -68,18 +68,19 @@ var authServiceAPI = function($injectHttp, $q, $base64, $cookieStore, $rootScope
                     if (response.success) {
                         response.assetId = data.assetId;
                         response.localeCode = data.localeCode;
+                        response.role = data.role;
                         deferred.resolve(response);
                     } else {
                         response.message = 'Username or password is incorrect';
                         deferred.resolve(response);
                     }
-                }, 500);
+                }, 100);
             })
             .error(function(data, status, headers, config) {
                 $timeout(function() {
                     response.message = 'Username or password is incorrect';
                     deferred.resolve(response);
-                }, 500);
+                }, 100);
             });
 
         return deferred.promise;
@@ -94,14 +95,15 @@ var authServiceAPI = function($injectHttp, $q, $base64, $cookieStore, $rootScope
 
     };
 
-    API.setCredentials = function(username, password, assetId) {
+    API.setCredentials = function(username, password, assetId, role) {
         var authdata = $base64.encode(username + ':' + password);
 
         $rootScope.globals = {
             currentUser: {
                 username: username,
                 authdata: authdata,
-                assetId: assetId
+                assetId: assetId,
+                role: role
             }
         };
 

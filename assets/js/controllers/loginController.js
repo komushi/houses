@@ -9,11 +9,11 @@ angular.module('app')
                 authService.login($scope.username, $scope.password).then(function(response) {
                     if (response.success) {
 
-                        authService.setCredentials($scope.username, $scope.password, response.assetId);
+                        authService.setCredentials($scope.username, $scope.password, response.assetId, response.role);
 
                         $asyncTranslator.setLocaleCode(response.localeCode);
 
-                        menuService.retreiveMenus(response.assetId).then(function() {
+                        menuService.retreiveMenus().then(function() {
                             $rootScope.logout = false;
 
                             console.log("state go to app.home from login ctrl!!!");
