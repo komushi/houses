@@ -8,6 +8,8 @@ angular.module('app')
 
         console.log("header controller!!!!!!!!!!!!!!!!!!!");
 
+        $scope.fullName = $rootScope.globals.currentUser.fullName;
+
         $scope.logout = function() {
 
             console.log("header logout!!!!!!!!!!!!!!!!!!!");

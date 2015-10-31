@@ -9,7 +9,7 @@ angular.module('app')
                 authService.login($scope.username, $scope.password).then(function(response) {
                     if (response.success) {
 
-                        authService.setCredentials($scope.username, $scope.password, response.assetId, response.role);
+                        authService.setCredentials($scope.username, $scope.password, response.assetId, response.role, response.fullName);
 
                         $asyncTranslator.setLocaleCode(response.localeCode);
 

@@ -8,7 +8,7 @@ angular.module('app', ['snapscroll', 'truncate'])
 
       console.log("Info2 controller!!!!");
 
-      $scope.number = 80;
+      $scope.number = 100;
 
       // set translationid for contents
       for (var key in viewSummary.viewData.contents) {
@@ -36,11 +36,23 @@ angular.module('app', ['snapscroll', 'truncate'])
       });
 
       $scope.maximizeMessage = function() {
-        $scope.number = 2000;
+        console.log('maximizeMessage1111');
+        // $scope.number = 2000;
+
+        angular.extend($scope, {
+            number: 2000
+        });
+        $translate.use(localeCode);
       };
 
       $scope.restoreMessage = function() {
-        $scope.number = 80;
+        console.log('restoreMessage');
+        // $scope.number = 100;
+        
+        angular.extend($scope, {
+            number: 100
+        });
+        $translate.use(localeCode);
       };
 
       $scope.setMessage = function(snapIndex) {

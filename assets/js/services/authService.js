@@ -69,6 +69,7 @@ var authServiceAPI = function($injectHttp, $q, $base64, $cookieStore, $rootScope
                         response.assetId = data.assetId;
                         response.localeCode = data.localeCode;
                         response.role = data.role;
+                        response.fullName = data.fullName;
                         deferred.resolve(response);
                     } else {
                         response.message = 'Username or password is incorrect';
@@ -95,7 +96,7 @@ var authServiceAPI = function($injectHttp, $q, $base64, $cookieStore, $rootScope
 
     };
 
-    API.setCredentials = function(username, password, assetId, role) {
+    API.setCredentials = function(username, password, assetId, role, fullName) {
         var authdata = $base64.encode(username + ':' + password);
 
         $rootScope.globals = {
@@ -103,7 +104,8 @@ var authServiceAPI = function($injectHttp, $q, $base64, $cookieStore, $rootScope
                 username: username,
                 authdata: authdata,
                 assetId: assetId,
-                role: role
+                role: role,
+                fullName: fullName
             }
         };
 
