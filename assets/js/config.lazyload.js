@@ -262,6 +262,13 @@ angular.module('app')
                       
                     ]
                 }, {
+                    name: 'swiper',
+                    files: [
+                      'assets/plugins/swiper/css/swiper.min.css',
+                      'assets/plugins/swiper/js/swiper.min.js',
+                      'assets/plugins/angular-swiper/angular-swiper.js'                      
+                    ]
+                }, {
                     name: 'services',
                     files: [
                       'assets/js/services/services.js',

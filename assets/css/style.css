@@ -21,3 +21,38 @@ image-container > img {
 .landscape img {
     height: 100%;
 }
+
+    .swiper-container {
+        width: 100%;
+    }
+    .swiper-slide {
+        font-size: 18px;
+        color:#fff;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 40px 60px;
+    }
+
+
+.swiper-slide img {
+    display: block;
+    margin: auto;
+    height: 80vh;
+    image-orientation: from-image;
+}
+
+    .swiper-slide .title {
+        color: #FF0000;
+        font-size: 30px;
+        font-weight: 300;
+    }
+    .swiper-slide .subtitle {
+        color: #FF0000;
+        font-size: 21px;
+    }
+    .swiper-slide .text {
+        color: #FF0000;
+        font-size: 14px;
+        max-width: 400px;
+        line-height: 1.3;
+    }

@@ -42,6 +42,10 @@ var menuServiceAPI = function($rootScope, $state, $q, $ocLazyLoad, $cookieStore,
         if (slide.desc) {
           slide.desc.translationId = viewName + "_" + slide.desc.translationId;
         }
+        
+        if (slide.pic) {
+          slide.pic.translationId = viewName + "_" + slide.pic.translationId;
+        }
 
       });
     }
@@ -62,134 +66,134 @@ var menuServiceAPI = function($rootScope, $state, $q, $ocLazyLoad, $cookieStore,
 
   };
 
-  var createServicesState = function(stateDetails) {
+  // var createServicesState = function(stateDetails) {
 
-    stateDetails.parentState = "app_services";
+  //   stateDetails.parentState = "app_services";
 
-    if ($state.get(stateDetails.parentState + "." + stateDetails.viewName)) {
-      return;
-    }
+  //   if ($state.get(stateDetails.parentState + "." + stateDetails.viewName)) {
+  //     return;
+  //   }
 
-    stateDetails.controllerUrl = "assets/js/controllers/" + stateDetails.viewType + "Controller.js";
+  //   stateDetails.controllerUrl = "assets/js/controllers/" + stateDetails.viewType + "Controller.js";
 
-    switch (stateDetails.viewType) {
+  //   switch (stateDetails.viewType) {
 
-      case "info":
-        stateDetails.plugin = ["snapscroll"];
-        break;
+  //     case "info":
+  //       stateDetails.plugin = ["snapscroll"];
+  //       break;
 
-      case "info2":
-        stateDetails.plugin = ["snapscroll", "truncate"];
-        break;
+  //     case "info2":
+  //       stateDetails.plugin = ["snapscroll", "truncate"];
+  //       break;
 
-      case "directions":
-        stateDetails.plugin = ["ng-map"];
-        break;
+  //     case "directions":
+  //       stateDetails.plugin = ["ng-map"];
+  //       break;
 
-      case "map":
-        stateDetails.plugin = ["ng-map"];
-        break;
+  //     case "map":
+  //       stateDetails.plugin = ["ng-map"];
+  //       break;
 
-    }
+  //   }
 
-    var stateConfig = {};
-    stateConfig.url = "/" + stateDetails.viewName;
-    stateConfig.templateUrl = "tpl/" + stateDetails.viewType + ".html";
-    stateConfig.controller = stateDetails.viewType + "Ctrl";
+  //   var stateConfig = {};
+  //   stateConfig.url = "/" + stateDetails.viewName;
+  //   stateConfig.templateUrl = "tpl/" + stateDetails.viewType + ".html";
+  //   stateConfig.controller = stateDetails.viewType + "Ctrl";
 
-    var resolve = {
-      deps: ['$ocLazyLoad', function($ocLazyLoad) {
-        return $ocLazyLoad.load(stateDetails.plugin, {
-            insertBefore: '#lazyload_placeholder'
-          })
-          .then(function() {
-            return $ocLazyLoad.load(stateDetails.controllerUrl);
-          });
-      }],
-      viewSummary: ['$q', function($q) {
-        var deferred = $q.defer();
+  //   var resolve = {
+  //     deps: ['$ocLazyLoad', function($ocLazyLoad) {
+  //       return $ocLazyLoad.load(stateDetails.plugin, {
+  //           insertBefore: '#lazyload_placeholder'
+  //         })
+  //         .then(function() {
+  //           return $ocLazyLoad.load(stateDetails.controllerUrl);
+  //         });
+  //     }],
+  //     viewSummary: ['$q', function($q) {
+  //       var deferred = $q.defer();
 
-        var viewInfo = {
-          userId: stateDetails.userId,
-          viewName: stateDetails.viewName,
-          viewType: stateDetails.viewType
-        };
+  //       var viewInfo = {
+  //         userId: stateDetails.userId,
+  //         viewName: stateDetails.viewName,
+  //         viewType: stateDetails.viewType
+  //       };
 
-        var headerInfo = {
-          "userId": stateDetails.userId,
-          "viewType": "blocks",
-          "viewName": "header"
-        };
+  //       var headerInfo = {
+  //         "userId": stateDetails.userId,
+  //         "viewType": "blocks",
+  //         "viewName": "header"
+  //       };
 
-        // var sidebarInfo = {
-        //   "userId": stateDetails.userId,
-        //   "viewType": "blocks",
-        //   "viewName": "sidebar"
-        // };
+  //       // var sidebarInfo = {
+  //       //   "userId": stateDetails.userId,
+  //       //   "viewType": "blocks",
+  //       //   "viewName": "sidebar"
+  //       // };
 
-        var viewInfos = [];
-        viewInfos.push(viewInfo);
-        viewInfos.push(headerInfo);
-        // viewInfos.push(sidebarInfo);
+  //       var viewInfos = [];
+  //       viewInfos.push(viewInfo);
+  //       viewInfos.push(headerInfo);
+  //       // viewInfos.push(sidebarInfo);
 
-        var viewSummary = {
-          viewInfos: viewInfos
-        };
+  //       var viewSummary = {
+  //         viewInfos: viewInfos
+  //       };
 
-        dataService.getViewData(viewInfo)
-          .then(function(data) {
+  //       dataService.getViewData(viewInfo)
+  //         .then(function(data) {
 
-            viewSummary.viewData = adjustViewData(viewInfo.viewName, data);
+  //           viewSummary.viewData = adjustViewData(viewInfo.viewName, data);
 
-            deferred.resolve(viewSummary);
-          }, function() {
-            deferred.resolve(viewSummary);
-          });
+  //           deferred.resolve(viewSummary);
+  //         }, function() {
+  //           deferred.resolve(viewSummary);
+  //         });
 
 
 
-        return deferred.promise;
-      }],
-      authenticated: authenticated
-    };
+  //       return deferred.promise;
+  //     }],
+  //     authenticated: authenticated
+  //   };
 
-    // get settings
-    switch (stateDetails.viewType) {
-      case 'directions':
-        var stylesJson = ['jsonService', function(jsonService) {
-          return jsonService.getJson(stateDetails.styles);
-        }];
+  //   // get settings
+  //   switch (stateDetails.viewType) {
+  //     case 'directions':
+  //       var stylesJson = ['jsonService', function(jsonService) {
+  //         return jsonService.getJson(stateDetails.styles);
+  //       }];
 
-        resolve.stylesJson = stylesJson;
-        break;
+  //       resolve.stylesJson = stylesJson;
+  //       break;
 
-      case 'map':
-        var stylesJson = ['jsonService', function(jsonService) {
-          return jsonService.getJson(stateDetails.styles);
-        }];
+  //     case 'map':
+  //       var stylesJson = ['jsonService', function(jsonService) {
+  //         return jsonService.getJson(stateDetails.styles);
+  //       }];
 
-        resolve.stylesJson = stylesJson;
-        break;
+  //       resolve.stylesJson = stylesJson;
+  //       break;
 
-      case 'maptest':
-        var stylesJson = ['jsonService', function(jsonService) {
-          return jsonService.getJson(stateDetails.styles);
-        }];
+  //     case 'maptest':
+  //       var stylesJson = ['jsonService', function(jsonService) {
+  //         return jsonService.getJson(stateDetails.styles);
+  //       }];
 
-        resolve.stylesJson = stylesJson;
-        break;
-    }
+  //       resolve.stylesJson = stylesJson;
+  //       break;
+  //   }
 
-    stateConfig.resolve = resolve;
+  //   stateConfig.resolve = resolve;
 
-    app.stateProvider.state(stateDetails.parentState + "." + stateDetails.viewName, stateConfig);
+  //   app.stateProvider.state(stateDetails.parentState + "." + stateDetails.viewName, stateConfig);
 
-    $rootScope.$broadcast("stateCreated", {
-      "state": stateDetails.viewName,
-      "parentState": stateDetails.parentState
-    });
+  //   $rootScope.$broadcast("stateCreated", {
+  //     "state": stateDetails.viewName,
+  //     "parentState": stateDetails.parentState
+  //   });
 
-  };
+  // };
 
   var createState = function(stateDetails) {
 
@@ -225,6 +229,10 @@ var menuServiceAPI = function($rootScope, $state, $q, $ocLazyLoad, $cookieStore,
 
       case "maptest":
         stateDetails.plugin = ["snapscroll", "ng-map"];
+        break;
+
+      case "swiper":
+        stateDetails.plugin = ["swiper"];
         break;
     }
 

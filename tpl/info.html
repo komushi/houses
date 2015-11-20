@@ -20,6 +20,7 @@
     <h3 ng-show="false" class="page-title" translate="{{PAGETITLE}}"></h3>
 </div>
 
+
 <div class="container-fluid container-fixed-lg">
     <!-- YOU CAN REMOVE .container-fixed-lg TO DISABLE THE FEATURE WHERE THE CONTENT
                  ALIGNS TO THE CENTER WITHOUT STRECTHING UNGLY ON 1800PX(1080P & 4/5K MONITORS) UP WORDS SCREEN
@@ -42,7 +43,7 @@
                     <div class="panel-body no-padding">
                         <div class="tab-content bg-transparent" snapscroll after-snap="setMessage(snapIndex)" fit-window-height="90%" snap-index="snapIndex" snap-duration="1200">
                             <image-container ng-repeat="slide in slides">
-                                <img src="{{slide.imageUrl}}"></img>    
+                                <img src="{{slide.pic.translationId | translate}}"></img>
                             </image-container>
                         </div>
                     </div>
