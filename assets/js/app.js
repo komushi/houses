@@ -17,5 +17,5 @@ var app = angular.module('app', [
     'app.services'
 ]);
 
-// var apiUrl = "http://localhost:8080/api/";
-var apiUrl = "http://houses-api.cfapps.io/api/";
+var apiUrl = "http://localhost:8080/api/";
+// var apiUrl = "http://houses-api.cfapps.io/api/";
